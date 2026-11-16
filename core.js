@@ -29,5 +29,15 @@ function parseSheets(sheets){
  return result;
 }
 function stats(item){const a=item.points.map(p=>p.v),n=a.length,mean=a.reduce((s,x)=>s+x,0)/n,sd=n>1?Math.sqrt(a.reduce((s,x)=>s+(x-mean)**2,0)/(n-1)):0;const specified=item.lo!==null||item.hi!==null;const bad=item.points.filter(p=>(item.lo!==null&&p.v<item.lo)||(item.hi!==null&&p.v>item.hi));return{n,mean,sd,min:Math.min(...a),max:Math.max(...a),specified,bad,pass:specified?(n-bad.length)/n:null};}
-root.HUD={parseSheets,stats};if(typeof module!=='undefined')module.exports=root.HUD;
+function groupItems(items){
+ const groups=new Map();
+ for(const item of items){
+ const name=item.name.replace(/_EBC/ig,'').replace(/_/g,' ').replace(/Buttom/ig,'Bottom').replace(/\s+/g,' ').trim();
+ const key=name.toLowerCase();
+ if(!groups.has(key))groups.set(key,{key,name,unit:item.unit,primary:/ghost|rotation|image size/i.test(name),series:[]});
+ groups.get(key).series.push(item);
+ }
+ return [...groups.values()];
+}
+root.HUD={parseSheets,stats,groupItems};if(typeof module!=='undefined')module.exports=root.HUD;
 })(globalThis);
