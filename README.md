@@ -31,3 +31,7 @@
 源码入口 `index.html`，统计逻辑 `core.js`，界面 `app.js`。使用已存在的 checkout；不需要新建 worktree。无构建依赖：运行 `python build.py` 生成单文件工具；`node test.cjs` 验证解析与统计逻辑。可用 `python -m http.server 8765` 在本机测试，或直接打开单文件。
 
 Excel 解析使用 SheetJS CE 0.18.5，Apache-2.0，许可证在 vendor/LICENSE-xlsx.txt。图表使用内置 SVG，无外部服务。
+
+## 英文汇报与可移动标注
+
+图内标注使用 Tall / Nominal / Short Eye Position，可拖动文字框定位，文字、边框和引导线与曲线同色。公差标签也可拖动，USL 为上限，LSL 为下限。点击 Reset labels 恢复当前图的默认位置。PNG / SVG 保留标注位置并包含英文统计，交互报告保存各图标注位置；重新导入表格重置位置。SD 是样本标准差，OOS 是超差数，Pass 为当前限值下的合格率。
